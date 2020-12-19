@@ -2,7 +2,7 @@
 **Endpoint -> /robots.txt**  
 **Tools used : nmap**  
   
-Just a simple nmap scan with ```nmap -sC -sV hackyholidays.h1ctf.com```, result showed ```http-robots.txt: 1 disallowed entry```, looked into hackyholidays.h1ctf.com/robots.txt
+Just a simple nmap scan with ```nmap -sC -sV hackyholidays.h1ctf.com```, result showed ```http-robots.txt: 1 disallowed entry```, looked into hackyholidays.h1ctf.com/robots.txt and the flag can be found there. 
 
 --------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ Just a simple nmap scan with ```nmap -sC -sV hackyholidays.h1ctf.com```, result 
 **Endpoint -> /s3cr3t-ar3a**  
 **Tools used: Developer Tools (Firefox)**  
   
-The page said COME BACK TOMORROW when visited on Day 1, definitely a place to look, webpage has a heading that says Page Moved and "I've moved this page to keep people out! If you're allowed access you'll know where to look for the proper page!". A possible rabbit hole to keep the competitors busy but as I have been fuzzing on Day 1 for hours and ended up into something which was right there and I missed it, my intuition says this flag must not reach sky heights of difficulty. Thinking like a beginner asks me to go through the source code. Source code had nothing so special, fired up Developer Tools in Firefox (F12 key), inspected the elements, found "info="flag{b7ebcb75-9100-4f91-8454-cfb9574459f7}" next-page="/apps">" which also has the hint for possible Day 3 flag that says "next-page="/apps"", which at the moment gives a 404.   
+The page said COME BACK TOMORROW when visited on Day 1, definitely a place to look, webpage has a heading that says Page Moved and "I've moved this page to keep people out! If you're allowed access you'll know where to look for the proper page!". A possible rabbit hole to keep the competitors busy but as I have been fuzzing on Day 1 for hours and ended up into something which was right there and I missed it, my intuition says this flag must not reach sky heights of difficulty. Thinking like a beginner asks me to go through the source code. Source code had nothing so special, fired up Developer Tools in Firefox (F12 key), inspected the elements, found ``"info="flag{b7ebcb75-9100-4f91-8454-cfb9574459f7}" next-page="/apps">"`` which also has the hint for possible Day 3 flag that says "next-page="/apps"", which at the moment gives a 404.   
 
 --------------------------------------------------------------------------------
   
@@ -18,8 +18,8 @@ The page said COME BACK TOMORROW when visited on Day 1, definitely a place to lo
 **Endpoint -> /apps**  
 **Tools used: Developer Tools (Firefox)**  
   
-Request for the first person named "Tea Avery" had a "id" parameter that was set equals to "eyJpZCI6Mn0=", this parameter looks like to be sufficed with a base64 string, on decoding, we found that it translates to {"id":2}, the last person on the web application named "Charlton Dillon" had similar parameter, base64 encoded again that translates to {"id":17}, so I modified the request of {id:17} to {"id":18} that was encoded to be "eyJpZCI6MTh9", but this request dropped a 404 with response as "Entry not found".
-Let's try encoding {"id":1} as base64 and using it as the parameter, on making a POST request with id set to "eyJpZCI6MX0=", we get a 200 response code with the flag in the response panel. 
+Request for the first person named "Tea Avery" had a ``"id"`` parameter that was set equals to ``"eyJpZCI6Mn0="``, this parameter looks like to be sufficed with a base64 string, on decoding, we found that it translates to ``{"id":2}``, the last person on the web application named "Charlton Dillon" had similar parameter, base64 encoded again that translates to {"id":17}, so I modified the request of ``{id:17}`` to ``{"id":18}`` that was encoded to be ``"eyJpZCI6MTh9"``, but this request dropped a 404 with response as "Entry not found".
+Let's try encoding ``{"id":1}`` as base64 and using it as the parameter, on making a POST request with id set to ``"eyJpZCI6MX0="``, we get a 200 response code with the flag in the response panel. 
 
 -------------------------------------------------------------
   
