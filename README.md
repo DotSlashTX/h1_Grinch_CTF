@@ -37,7 +37,9 @@ A successful request with code 200, tried purchasing but failed, went on to brut
 **Endpoint : /my_secure_files_not_for_you.zip**  
 **Tools used : A handmade zip bruteforcer, ffuf, BurpSuite, Seclists, rockyou.txt Developer Tools (Firefox)**  
   
-On testing the web application, we noticed that it gives us a weird warning when checking the credentials, usually in applications like Facebook, Twitter etc we get to see, "Incorrect username or password" but here the warning says, "Invalid username", according to which this application first checks if username is correct or not, then it goes on to match the passwords. So on intercepting the request with username and password as "test_user" and "test_pass" respectively, we get "username=test_user&password=test_pass" in request body. In order to make this data usable to iterate through a wordlist in ffuf, we change the username to FUZZ and password remains unchanged. 
+On testing the web application, we noticed that it gives us a weird warning when checking the credentials, usually in applications like Facebook, Twitter etc we get to see, "Incorrect username or password" but here the warning says, "Invalid username", according to which this application first checks if username is correct or not, then it goes on to match the passwords. So on intercepting the request with username and password as "test_user" and "test_pass" respectively, we get "username=test_user&password=test_pass" in request body. In order to make this data usable to iterate through a wordlist in ffuf, we change the username to FUZZ and password remains unchanged in the Request Body, we then have to save this data as a .raw file and then feed to ffuf. Iterating our raw file through xato-net-10-million wordslist using the command  
+``./ffuf -request /home/user1/Desktop/ow.raw -w /home/user1/Downloads/SecLists/Usernames/xato-net-10-million-usernames.txt -fr "Invalid Username"``  
+, we hit ``"access"`` as a username. On using 
  
 -------------------------------------------------------------------------------
   
