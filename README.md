@@ -1,6 +1,6 @@
-###Flag 1 : ``flag{48104912-28b0-494a-9995-a203d1e261e7}``
-###Endpoint -> /robots.txt
-###Tools used : nmap
+**Flag 1 : flag{48104912-28b0-494a-9995-a203d1e261e7}**
+**Endpoint -> /robots.txt**
+**Tools used : nmap**
 
 Just a simple nmap scan with ```nmap -sC -sV hackyholidays.h1ctf.com```, result showed ```http-robots.txt: 1 disallowed entry```, looked into hackyholidays.h1ctf.com/robots.txt
 
