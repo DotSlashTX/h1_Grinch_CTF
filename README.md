@@ -93,4 +93,8 @@ secretadminadmin.php -> secretadmin
 secretadminadmin.php.php -> secret
 secretsecretadminadmin.php.php ->  secretadminsecret.php 
 ```
-The most apt payload that I had crafted which translated to ``secretadmin.php`` was ``secretsecretadminadmin.php.phpadminadmin.php.php``. On using this payload as an input to the ``/?template=`` parameter, we hit a 200 HTTP Response Code and the flag
+The most apt payload that I had crafted which translated to ``secretadmin.php`` was ``secretsecretadminadmin.php.phpadminadmin.php.php``. On using this payload as an input to the ``/?template=`` parameter, we hit a 200 HTTP Response Code along with the flag.  
+
+-------------------------------------------------------------------------------  
+  
+**Flag 7: flag{5bee8cf2-acf2-4a08-a35f-b48d5e979fdd}** 
