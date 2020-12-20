@@ -74,4 +74,14 @@ if( isset($_GET["template"])  ){
     header("Location: /my-diary/?template=entries.html");
     exit();
 }
-``` 
+```
+  
+So in a nutshell, the code checks if ``"template"`` parameter is being fulfilled with some query or not, it then grabs whatever our query is, removes certain symbols and numerals in the query. Later in case if we feed the parameter with ``admin.php``, it gets replaced with a blank. Also as already told in the comments that `` //I've changed the admin file to secretadmin.php for more security!``, we know that ``admin.php`` is replaced as ``secretadmin.php``.  
+On running the code locally using the command ``php -i``, for now we will only work on the code that hold the logic to sanitize user input, also I have tweaked the code a little bit to give my payload as input and actually see what happens to my inputs.  
+```php
+<?php
+	$page = "payload_here" // this will be used to store and test payloads
+	$page = preg_replace('/([^a-zA-Z0-9.])/','',$page);
+	$page = str_replace("admin.php","",$page);
+	$page = str_replace("secretadmin.php","",$page);
+```
