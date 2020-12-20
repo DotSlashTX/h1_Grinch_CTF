@@ -47,6 +47,31 @@ On using "access" and "computer" as username and password repectively, we get ac
 -------------------------------------------------------------------------------
   
 **Flag 6: flag{18b130a7-3a79-4c70-b73b-7f23fa95d395}**  
-Endpoint: /secretsecretadminadmin.php.phpadminadmin.php.php
-          /secretsecretadminadmin.php.phpadminadmin.phpadmin.php.php
-          /secretsecretadminadmin.php.phpadminadmin.php.php
+**Endpoint: /?template=secretsecretadminadmin.php.phpadminadmin.php.php**  
+**Tools used: Developer Tools (Firefox),ffuf, Wappalyzer, php (interactive mode)**  
+
+On using Wappalyzer extension, we get to know that programming language used here is PHP, next on directory bruteforcing using ffuf, we get to know about a page called ``index.php`` which shows nothing but the diary entries. on using ``index.php`` as a query to the parameter ``/?template=``, we get a HTTP response code 200 and in the response payload, we get a PHP code that is:  
+```php
+<?php
+if( isset($_GET["template"])  ){
+    $page = $_GET["template"];
+    //remove non allowed characters
+    $page = preg_replace('/([^a-zA-Z0-9.])/','',$page);
+    //protect admin.php from being read
+    $page = str_replace("admin.php","",$page);
+    //I've changed the admin file to secretadmin.php for more security!
+    $page = str_replace("secretadmin.php","",$page);
+    //check file exists
+    if( file_exists($page) ){
+       echo file_get_contents($page);
+    }else{
+        //redirect to home
+        header("Location: /my-diary/?template=entries.html");
+        exit();
+    }
+}else{
+    //redirect to home
+    header("Location: /my-diary/?template=entries.html");
+    exit();
+}
+``` 
