@@ -110,4 +110,9 @@ To make use of the same, we visit the home page of the challenge. Hit `Create Ne
   
 -------------------------------------------------------------------------------  
   
-**Flag 8: 
+**Flag 8: flag{677db3a0-f9e9-4e7e-9ad7-a9f23e47db8b}**
+**Endpoint: /forum/3**
+**Tools used: ffuf, Seclists, https://crackstation.net/ , others(OSINT, common sense)**
+
+Before beginning with the see through of the web application, I decided to begin with directory and endpoint discovery using ffuf with Seclists wordlist. On visiting the challenge, we get to see two sections, `General` and `Admin` respectively. `General` has two posts, `Christmas!!!`, which has 1 post and `Nice Things To Do` which has no posts. On visiting `Christmas!!!`, we get a comment that says ` 	
+Why I hate Christmas` on visiting which, we get to see two users, one is `grinch` and other is `max`. Getting back to the ffuz scans, we have 4 endpoints that are `1`,`2`,`login` and `phpmyadmin`. On visiting `phpmyadmin` endpoint, we get to see a login bruteforcing which for a couple of minutes, say 30-45 with `grinch`,`admin` and `max` as the usernames, I gave up as passwords generally don't take that long to crack keeping in mind previous challenges. Same had happened while bruteforcing the `login` endpoints, I gave up as it took way too long. Meanwhile in the hacker101 Discord server, one of the solver said something about the source code. This bugged me and I began looking for more directories, meanwhile I had an intuition about that this has something to do with GitHub. Went straight to nahamsec's GitHub account and found nothing so juicy in his repositories or commits. But Adam's GitHub account had a commit on Dec 7 this year which was to https://github.com/Grinch-Networks/forum . Awesome! After cloning the repository and looking for all possible vulnerable code, ended up finding nothing. But in the commits I found a commit with the comment, `Initial Commit`. On looking at `models/Db.php` Line 134, we get to see ```php              self::$read = new DbConnect( false, 'forum', 'forum','6HgeAZ0qC9T6CQIqJpD' );```    
